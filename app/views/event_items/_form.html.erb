@@ -1,0 +1,20 @@
+<%= bootstrap_form_for [@event, @event_item], layout: :horizontal do |f| %>
+  <%= f.alert_message "Please fix the errors below." %>
+
+  <%= f.text_field :title %>
+  <%= f.text_field :total_price, :help => 'Usar este campo quando for um preço total que será dividido entre os participantes' %>
+  <%= f.text_field :per_person_price, :help => 'Usar este campo quando for um ítem que já terá preço por pessoa' %>
+  <%= f.text_field :child_factor, :help => 'Desconto para crianças', :placeholder => '0.5' %>
+
+  <%= f.text_field :woman_factor, :help => 'Desconto para mulheres', :placeholder => '0.8' %>
+  <%= f.form_group do %>
+    <%= f.check_box :required_per_person %>
+    <span class="help-block">Marcar este ítem quando for obrigatório para cada pessoal. Ex: Taxa de entrada</span>
+  <% end %>
+
+  <%= f.form_group do %>
+      <%= link_to "Return to events", events_path, :class => 'btn btn-default' %>
+      <%= f.submit :class => 'btn btn-primary'  %>
+  <% end %>
+
+<% end %>

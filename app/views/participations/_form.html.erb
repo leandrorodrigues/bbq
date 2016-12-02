@@ -1,0 +1,15 @@
+<%= bootstrap_form_for [@event, @participation], layout: :horizontal do |f| %>
+  <%= f.alert_message "Please fix the errors below." %>
+        <%= f.collection_select :user_id, User.all, :id, :name %>
+        <%= f.collection_select :event_id, Event.all, :id, :title %>
+        <%= f.collection_radio_buttons :kind,  [[:men, 'Men'], [:woman, 'Woman'], [:child, 'Child']], :first, :last %>
+
+        <%= f.text_field :name %>
+
+        <%= f.collection_check_boxes :event_item_ids, @event.event_items, :id, :title, :label => 'Items'  %>
+
+    <%= f.form_group do %>
+      <%= f.submit :class => 'btn btn-primary'  %>
+  <% end %>
+
+<% end %>

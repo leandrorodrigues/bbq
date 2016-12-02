@@ -1,0 +1,31 @@
+<%- model_class = EventItem -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:event_id) %>:</strong></dt>
+  <dd><%= @event_item.event_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
+  <dd><%= @event_item.title %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:total_price) %>:</strong></dt>
+  <dd><%= @event_item.total_price %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:per_person_price) %>:</strong></dt>
+  <dd><%= @event_item.per_person_price %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:child_factor) %>:</strong></dt>
+  <dd><%= @event_item.child_factor %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:woman_factor) %>:</strong></dt>
+  <dd><%= @event_item.woman_factor %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:required_per_person) %>:</strong></dt>
+  <dd><%= @event_item.required_per_person %></dd>
+</dl>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              event_items_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_event_item_path(@event_item), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              event_item_path(@event_item),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>

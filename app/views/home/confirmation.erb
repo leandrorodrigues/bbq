@@ -1,0 +1,47 @@
+<div class="well">
+  <h1>Confirmação em <%= @event.title %></h1>
+
+  <%= bootstrap_form_for @event, url: confirm_user_path, :method => :POST, layout: :horizontal do |f| %>
+    <%= f.hidden_field :id %>
+
+    <%= f.fields_for :participations, @event.participations.build  do |p| %>
+      <%= p.hidden_field :event_id, :value => @event.id %>
+      <%= p.hidden_field :user_id, :value => @user.id %>
+      <%= p.hidden_field :name, :value => @user.name %>
+
+      <%= f.static_control :name, :label => "Nome" do %>
+          <%= @user.name %>
+      <% end %>
+      <%= f.static_control :date, :label => "Data" do %>
+          <%= @event.date.strftime("%d/%m/%Y") %>
+      <% end %>
+
+      <%= f.static_control :label => "Ítens por pessoa" do %>
+        <% @event.event_items.where(:required_per_person => 1).each do |item| %>
+          <%= item.title_price %>
+        <% end %>
+      <% end %>
+
+      <%= p.collection_check_boxes :event_item_ids, @event.event_items.where(:required_per_person => false), :id, :title_price, label: "Ítens Adicionais"  %>
+
+    <% end %>
+
+    <% (1..5).each do |i| %>
+      <h3>Convidado <%= i %></h3>
+
+      <%= f.fields_for :participations, @event.participations.build do |c| %>
+        <%= c.hidden_field :event_id, :value => @event.id %>
+        <%= c.hidden_field :user_id, :value => @user.id %>
+
+        <%= c.text_field :name, :label => 'Nome' %>
+        <%= c.collection_radio_buttons :kind,  [[:men, 'Homem'], [:woman, 'Mulher'], [:child, 'Criança']], :first, :last, :label => 'Tipo' %>
+
+        <%= c.collection_check_boxes :event_item_ids, @event.event_items.where(:required_per_person => false), :id, :title_price, label: "Ítens Adicionais"  %>
+      <% end %>
+    <% end %>
+
+    <%= f.form_group do %>
+       <%= f.submit "Confirmar", :class => 'btn btn-primary' %>
+    <% end %>
+<% end %>
+</div>

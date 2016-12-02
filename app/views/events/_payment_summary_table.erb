@@ -1,0 +1,68 @@
+<%
+  totals = []
+  total = 0
+%>
+
+<table class="table table-bordered table-hover table-striped">
+  <thead>
+  <tr>
+    <th>Nome</th>
+    <%
+      @event.event_items.each do |item|
+        totals[item.id] = 0
+    %>
+        <th><%= item.title %></th>
+    <% end %>
+  </tr>
+  </thead>
+  <%
+    current_user = 0
+    current_user_name = ''
+    current_user_total = 0
+    @event.participations.each do |participation|
+      if participation.user_id != current_user
+
+        #imprime sumário daquele usuário
+        if current_user != 0
+  %>
+              <tr>
+                <th colspan="<%= @event.event_items.length + 1 %>">Total de <%= current_user_name %>: <%= number_to_currency(current_user_total) %></th>
+              </tr>
+          <%
+            end
+            #atualiza para iniciar dados do novo
+            current_user = participation.user_id
+            current_user_name = participation.user.name
+            current_user_total = 0
+            end
+          %>
+      <tr>
+        <td><%= participation.name %></td>
+        <% @event.event_items.each do |item| %>
+            <td>
+              <%
+                if participation.event_items.include?(item)
+                  price = item.price(participation.kind)
+                  totals[item.id] += price
+                  current_user_total += price
+                  total += price
+              %>
+                  <%= number_to_currency(price) %>
+              <% end  %>
+            </td>
+        <% end %>
+      </tr>
+  <% end %>
+  <tr>
+    <th colspan="<%= @event.event_items.length + 1 %>">Total de <%= current_user_name %>: <%= number_to_currency(current_user_total) %></th>
+  </tr>
+
+  <tfoot>
+  <tr>
+    <th>Total: <%= number_to_currency(total) %></th>
+    <% @event.event_items.each do |item| %>
+        <th><%= number_to_currency(totals[item.id]) %></th>
+    <% end %>
+  </tr>
+  </tfoot>
+</table>

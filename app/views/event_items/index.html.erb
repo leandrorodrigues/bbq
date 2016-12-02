@@ -1,0 +1,61 @@
+<%- model_class = EventItem -%>
+<div class="page-header">
+  <h1>Event items for <%=@event.title %></h1>
+</div>
+
+<div class="pull-right">
+  <%= link_to "Return to events",
+              events_path,
+              :class => 'btn btn-default' %>
+
+  <%= link_to t('.new', :default => t("helpers.links.new")),
+    new_event_event_item_path,
+    :class => 'btn btn-primary' %>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= sortable 'id', model_class.human_attribute_name(:id) %></th>
+      <th><%= sortable 'title', model_class.human_attribute_name(:title) %></th>
+      <th><%= sortable 'total_price', model_class.human_attribute_name(:total_price) %></th>
+      <th><%= sortable 'per_person_price', model_class.human_attribute_name(:per_person_price) %></th>
+      <th><%= sortable 'child_factor', model_class.human_attribute_name(:child_factor) %></th>
+      <th><%= sortable 'woman_factor', model_class.human_attribute_name(:woman_factor) %></th>
+      <th><%= sortable 'required_per_person', model_class.human_attribute_name(:required_per_person) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @event_items.each do |event_item| %>
+      <tr>
+        <td><%= link_to event_item.id, event_event_item_path(@event, event_item) %></td>
+        <td><%= event_item.title %></td>
+        <td><%= event_item.total_price %></td>
+        <td><%= event_item.per_person_price %></td>
+        <td><%= event_item.child_factor %></td>
+        <td><%= event_item.woman_factor %></td>
+        <td><%= event_item.required_per_person %></td>
+        <td>
+          <%= link_to icon(t('icon.edit')),
+                      edit_event_event_item_path(@event, event_item),
+                      :class => 'btn btn-warning btn-xs',
+                      :title => t('.edit', :default => t("helpers.links.edit"))
+          %>
+          <%= link_to icon(t('icon.destroy')),
+                      event_event_item_path(@event, event_item),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger',
+                      :title => t('.destroy', :default => t("helpers.links.destroy"))
+          %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="pull-right">
+  <%= paginate(@event_items) %>
+</div>
+

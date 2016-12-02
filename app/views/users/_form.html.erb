@@ -1,0 +1,12 @@
+<%= bootstrap_form_for @user, layout: :horizontal do |f| %>
+  <%= f.alert_message "Please fix the errors below." %>
+
+
+        <%= f.text_field :name %>
+        <%= f.collection_radio_buttons :gender,  [[:m, 'Male'], [:f, 'Female']], :first, :last %>
+
+  <%= f.form_group do %>
+      <%= f.submit :class => 'btn btn-primary'  %>
+  <% end %>
+
+<% end %>

@@ -1,0 +1,16 @@
+<div class="jumbotron">
+  <div class="container">
+    <h1><%= @event.title %> em <%= @event.date.strftime("%d/%m/%Y") %></h1>
+    <p>Confirme sua presença!</p>
+
+      <% @users.each do |user| %>
+        <%= link_to user.name, confirmation_user_path(user), :class => 'btn btn-primary btn-spaced' %>
+      <% end %>
+
+  </div>
+
+  <%= link_to "Resumo do pagamento", payment_summary_home_path, :class => 'btn btn-success pull-right' %>
+</div>
+
+
+<%= link_to 'events_adm', events_path %>

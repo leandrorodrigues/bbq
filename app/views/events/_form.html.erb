@@ -1,0 +1,12 @@
+<%= bootstrap_form_for @event, layout: :horizontal do |f| %>
+  <%= f.alert_message "Please fix the errors below." %>
+
+
+        <%= f.text_field :title %>
+        <%= f.text_field :date %>
+
+  <%= f.form_group do %>
+      <%= f.submit :class => 'btn btn-primary'  %>
+  <% end %>
+
+<% end %>
