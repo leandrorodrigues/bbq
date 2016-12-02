@@ -11,3 +11,8 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 
 Rails.application.config.assets.precompile += %w( landing.css )
+Rails.application.config.assets.precompile << Proc.new { |path|
+  if path =~ /\.(eot|svg|ttf|woff|otf)\z/
+    true
+  end
+}
