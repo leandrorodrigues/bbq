@@ -8,6 +8,10 @@
   <dd><%= @event.title %></dd>
   <dt><strong><%= model_class.human_attribute_name(:date) %>:</strong></dt>
   <dd><%= @event.date %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:permit_participation) %>:</strong></dt>
+  <dd><%= @event.permit_participations %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:instructions) %>:</strong></dt>
+  <dd><%= @event.instructions %></dd>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),

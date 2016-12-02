@@ -1,10 +1,11 @@
 class HomeController < ApplicationController
   layout 'landing'
 
-  before_action :get_event
+  before_action :get_event, only: [:index, :confirmation, :confirm]
 
   def index
     if !@event
+      @event = Event.last
       render 'not_found' and return
     end
 
@@ -40,14 +41,14 @@ class HomeController < ApplicationController
   end
 
   def payment_summary
-
-  end
-
-  def get_event
-    @event = Event.where("date >= now()").first
+    @event = Event.find(params[:event_id])
   end
 
   private
+    def get_event
+      @event = Event.where("date >= now()").first
+    end
+
     def event_params
       params.required(:event).permit(:id, participations_attributes: [:user_id, :event_id, :name, :kind, event_item_ids: []])
     end

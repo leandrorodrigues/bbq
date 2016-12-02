@@ -1,6 +1,11 @@
 <div class="jumbotron">
   <div class="container">
-    <h1 class="display-3">Não há churrascos agendados</h1>
+    <h1 class="display-3">Não há eventos agendados</h1>
     <p>Aguarde...</p>
+
+    <%= link_to "Resumo do pagamento do último evento", payment_summary_home_path(@event), :class => 'btn btn-success pull-right' %>
   </div>
 </div>
+
+
+<%= link_to 'events_adm', events_path %>

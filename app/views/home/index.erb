@@ -1,15 +1,23 @@
 <div class="jumbotron">
   <div class="container">
     <h1><%= @event.title %> em <%= @event.date.strftime("%d/%m/%Y") %></h1>
-    <p>Confirme sua presença!</p>
+
+    <p><%= @event.instructions %></p>
+
+
+    <% if @event.permit_participations %>
+      <p>Confirme sua presença!</p>
 
       <% @users.each do |user| %>
         <%= link_to user.name, confirmation_user_path(user), :class => 'btn btn-primary btn-spaced' %>
       <% end %>
+    <% else %>
+      <p>Prazo para confirmar presença esgotado.</p>
+    <% end %>
 
   </div>
 
-  <%= link_to "Resumo do pagamento", payment_summary_home_path, :class => 'btn btn-success pull-right' %>
+  <%= link_to "Resumo do pagamento", payment_summary_home_path(@event), :class => 'btn btn-success pull-right' %>
 </div>
 
 

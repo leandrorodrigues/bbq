@@ -12,6 +12,6 @@ Rails.application.routes.draw do
 
   root "home#index"
   get "confirmation/:user_id", to: "home#confirmation", as: "confirmation_user"
-  get "payment_summary", to: "home#payment_summary", as: "payment_summary_home"
+  get "payment_summary/:event_id", to: "home#payment_summary", as: "payment_summary_home"
   post "confirm", to: "home#confirm", as: "confirm_user"
 end
